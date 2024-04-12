@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 19 Jan 2022 pada 14.03
--- Versi server: 10.4.21-MariaDB
--- Versi PHP: 8.0.10
+-- Waktu pembuatan: 12 Apr 2024 pada 07.48
+-- Versi server: 10.4.28-MariaDB
+-- Versi PHP: 8.0.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -38,7 +38,7 @@ CREATE TABLE `anggota` (
   `jenis_kelamin` int(11) NOT NULL,
   `tempat_lahir` varchar(50) NOT NULL,
   `tanggal_lahir` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `anggota`
@@ -48,7 +48,15 @@ INSERT INTO `anggota` (`id_anggota`, `kode_anggota`, `nama_anggota`, `foto`, `no
 (69, 'A001', 'Marshel', 'foto_default.png', '08743938434', 'marshel@gmail.com', 'Jl Batu no 55', 1, 'Dobo', '2021-02-23'),
 (73, 'A070', 'Fitri Ayu', 'user1.png', '08634343934', 'fitri@gmail.com', 'Jl. Magelang km 89', 2, 'Yogyakarta', '1997-01-12'),
 (74, 'A074', 'Bayu', 'user5.png', '0893473434', 'bayu@gmail.com', 'Jl batu angus no 66', 1, 'Ternate', '1998-01-09'),
-(75, 'A075', 'Erik', 'dimas.png', '0893434734834', 'erik@gmail.com', 'Jl Jendral Sudirman no 55', 1, 'Jakarta', '1999-12-23');
+(75, 'A075', 'Erik', 'dimas.png', '0893434734834', 'erik@gmail.com', 'Jl Jendral Sudirman no 55', 1, 'Jakarta', '1999-12-23'),
+(76, 'A076', 'Widya', 'foto_default.png', '0812345678', 'Widyagaming@gmail.com', 'Jl. Barutikung', 2, 'semarang', '2024-01-23'),
+(77, 'A077', 'joni', 'foto_default.png', '012345678', 'jonigantenk@gmail.com', '', 0, '', '0000-00-00'),
+(78, 'A078', 'fattah', 'foto_default.png', '12345678', 'fattah@gmail.com', '', 0, '', '0000-00-00'),
+(79, 'A079', 'fahmi', 'foto_default.png', '12345678', 'test@gmail.com', '', 0, '', '0000-00-00'),
+(80, 'A080', 'tes', 'foto_default.png', '123', 'tes@gmail', '', 0, '', '0000-00-00'),
+(81, 'A081', 'da', 'foto_default.png', '12345', 'da@gmail', '', 0, '', '0000-00-00'),
+(82, 'A082', 'mo', 'foto_default.png', '12345', 'mo@gmail', '', 0, '', '0000-00-00'),
+(83, 'A083', 'resti', 'foto_default.png', '12345678', 'res@gmail.com', '', 0, '', '0000-00-00');
 
 -- --------------------------------------------------------
 
@@ -61,14 +69,14 @@ CREATE TABLE `aturan_perpustakaan` (
   `waktu_peminjaman` int(11) NOT NULL,
   `maksimal_peminjaman` int(11) NOT NULL,
   `denda_keterlambatan` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `aturan_perpustakaan`
 --
 
 INSERT INTO `aturan_perpustakaan` (`id`, `waktu_peminjaman`, `maksimal_peminjaman`, `denda_keterlambatan`) VALUES
-(0, 7, 3, 500);
+(0, 5, 3, 1000);
 
 -- --------------------------------------------------------
 
@@ -85,7 +93,16 @@ CREATE TABLE `detail_peminjaman` (
   `status` int(11) NOT NULL,
   `jenis_denda` int(11) NOT NULL,
   `denda` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `detail_peminjaman`
+--
+
+INSERT INTO `detail_peminjaman` (`id_detail_peminjaman`, `kode_peminjaman`, `kode_pustaka`, `tanggal_pinjam`, `tanggal_kembali`, `status`, `jenis_denda`, `denda`) VALUES
+(307, '01148', 'P0036', '2024-01-23', '2024-01-30', 2, 1, 2000),
+(308, '01148', 'P0032', '2024-01-23', '2024-01-30', 2, 2, 50000),
+(309, '01149', 'P0015', '2024-01-01', '0000-00-00', 1, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -103,7 +120,7 @@ CREATE TABLE `karyawan` (
   `alamat` varchar(60) NOT NULL,
   `no_telp` char(14) NOT NULL,
   `foto` varchar(200) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data untuk tabel `karyawan`
@@ -123,7 +140,7 @@ CREATE TABLE `kategori_pustaka` (
   `kode_kategori_pustaka` varchar(10) NOT NULL,
   `nama_kategori_pustaka` varchar(50) NOT NULL,
   `gambar_kategori_pustaka` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `kategori_pustaka`
@@ -154,7 +171,15 @@ CREATE TABLE `peminjaman` (
   `kode_peminjaman` varchar(10) NOT NULL,
   `kode_anggota` varchar(10) NOT NULL,
   `tanggal` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `peminjaman`
+--
+
+INSERT INTO `peminjaman` (`id_peminjaman`, `kode_peminjaman`, `kode_anggota`, `tanggal`) VALUES
+(1148, '01148', 'A076', '2024-01-23'),
+(1149, '01149', 'A070', '2024-01-23');
 
 -- --------------------------------------------------------
 
@@ -166,7 +191,7 @@ CREATE TABLE `penerbit` (
   `id_penerbit` int(11) NOT NULL,
   `kode_penerbit` varchar(10) NOT NULL,
   `nama_penerbit` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `penerbit`
@@ -203,18 +228,26 @@ CREATE TABLE `pengguna` (
   `password` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `level` varchar(20) NOT NULL,
   `status` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `pengguna`
 --
 
 INSERT INTO `pengguna` (`id_pengguna`, `kode_pengguna`, `username`, `password`, `level`, `status`) VALUES
-(37, 'K001', 'admin', '21232f297a57a5a743894a0e4a801fc3', 'Karyawan', 1),
-(81, 'A001', 'marshel', '2c9520f0e5d91a843ac72aab4c1a810b', 'Anggota', 1),
+(37, 'K001', 'admin', '25d55ad283aa400af464c76d713c07ad', 'Karyawan', 1),
+(81, 'A001', 'marshel', '2c9520f0', 'Anggota', 1),
 (86, 'A070', '', '', 'Anggota', 1),
 (87, 'A074', '', '', 'Anggota', 1),
-(88, 'A075', '', '', 'Anggota', 1);
+(88, 'A075', '', '', 'Anggota', 1),
+(89, 'A076', 'Widya', '9146bfc0', 'Anggota', 1),
+(90, 'A077', 'joni', '1281d0ac', 'Anggota', 1),
+(91, 'A078', 'fattah', '6ed0f2c2', 'Anggota', 1),
+(92, 'A079', 'fahmi', '41851c2c', 'Anggota', 1),
+(93, 'A080', 'tes', '25d55ad2', 'Anggota', 1),
+(94, 'A081', 'da', '5ca2aa845c8cd5ace6b016841f100d82', 'Anggota', 1),
+(95, 'A082', 'mo', '25d55ad283aa400af464c76d713c07ad', 'Anggota', 1),
+(96, 'A083', 'resti', '25d55ad283aa400af464c76d713c07ad', 'Anggota', 1);
 
 -- --------------------------------------------------------
 
@@ -226,7 +259,7 @@ CREATE TABLE `penulis` (
   `id_penulis` int(11) NOT NULL,
   `kode_penulis` varchar(10) NOT NULL,
   `nama_penulis` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `penulis`
@@ -252,7 +285,8 @@ INSERT INTO `penulis` (`id_penulis`, `kode_penulis`, `nama_penulis`) VALUES
 (24, 'P024', 'Kaiu Shirai, Posuka Demizu'),
 (25, 'P025', 'Kak Adah, Abang Kerel'),
 (26, 'P026', 'Agus Sudibyo'),
-(27, 'P027', 'Gadisturatea');
+(27, 'P027', 'Gadisturatea'),
+(29, 'P028', 'Andra Hirata');
 
 -- --------------------------------------------------------
 
@@ -268,14 +302,14 @@ CREATE TABLE `profil_aplikasi` (
   `no_telp` char(14) NOT NULL,
   `website` varchar(50) NOT NULL,
   `logo` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `profil_aplikasi`
 --
 
 INSERT INTO `profil_aplikasi` (`id`, `nama_aplikasi`, `nama_pimpinan`, `alamat`, `no_telp`, `website`, `logo`) VALUES
-(0, 'Perpustakaan Umum Daerah', 'Etik Darmawati S.Si, M.Cs', 'Jl Ahmad Yani No 56, Tegalrejo, Yogyakarta', '(021)7316876', 'www.perpustakaan.com', 'icon aplikasi.png');
+(0, 'Sistem Perpustakaan', 'Fattah S.Si, M.Cs', 'Jl. Dargo Kota Semarang', '(021)7316876', 'www.perpustakaan.com', 'icon aplikasi.png');
 
 -- --------------------------------------------------------
 
@@ -295,32 +329,65 @@ CREATE TABLE `pustaka` (
   `halaman` int(11) NOT NULL,
   `dimensi` varchar(50) NOT NULL,
   `stok` int(11) NOT NULL,
-  `rak` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `rak` varchar(50) NOT NULL,
+  `sinopsis` varchar(500) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `pustaka`
 --
 
-INSERT INTO `pustaka` (`id_pustaka`, `kode_pustaka`, `judul_pustaka`, `kategori_pustaka`, `penerbit`, `penulis`, `tahun`, `gambar_pustaka`, `halaman`, `dimensi`, `stok`, `rak`) VALUES
-(7, 'P0007', 'How To Be A Brillian Thinker', 11, 3, 7, '2020', 'How To Be A Brillian Thinker.PNG', 230, '-', 12, 'R001'),
-(9, 'P0009', 'Pemrograman Android Dalam Sehari', 12, 5, 9, '2015', 'Pemrograman Android Dalam Sehari.PNG', 168, '-', 7, 'R001'),
-(10, 'P0010', 'The Magic of Adobe Photoshop Edisi Revisi 2', 12, 6, 10, '2017', 'The Magic of Adobe Photoshop Edisi Revisi 2.PNG', 752, '-', 10, 'ROO3'),
-(11, 'P0011', 'Microsoft Visual Basic 6.0 Untuk Pemula', 12, 7, 11, '2008', 'Microsoft Visual Basic 6.0 Untuk Pemula.PNG', 230, '-', 8, 'ROO3'),
-(12, 'P0012', 'Bisa Investasi Dengan Gaji', 11, 3, 12, '2016', 'Bisa Investasi Dengan Gaji.PNG', 231, '-', 15, 'R002'),
-(13, 'P0013', 'Cara Mudah Buka Bisnis Travel', 11, 9, 13, '2016', 'Cara Mudah Buka Bisnis Travel.PNG', 162, '14 x 21 cm', 5, 'ROO1'),
-(14, 'P0014', 'Strategi Membangun Bisnis Mandiri', 11, 9, 6, '2016', 'Strategi Membangun Bisnis Mandiri.PNG', 129, '-', 8, 'R002'),
-(16, 'P0015', 'Dzikir Tauhid', 16, 10, 15, '2006', 'Dzikir Tauhid.PNG', 0, '13 x 20 cm', 8, 'B005'),
-(17, 'P0017', 'Hujan', 15, 9, 20, '2016', 'Hujan.PNG', 318, '14 x 21 Cm', 10, 'B006'),
-(18, 'P0018', 'Aneka Buah Berkhasiat Obat', 17, 12, 17, '2015', 'Aneka Buah Berkhasiat Obat.PNG', 162, '14 x 20 Cm', 10, 'B006'),
-(19, 'P0019', 'Invisible Hand', 20, 13, 18, '2013', 'Invisible Hand.PNG', 492, '-', 10, 'B007'),
-(25, 'P0020', 'The Small Big', 11, 9, 19, '2016', 'The Small Big.PNG', 246, '14 x 21 Cm', 9, 'R009'),
-(29, 'P0026', 'Self Driving', 11, 15, 23, '2014', 'Self Driving.PNG', 272, '14 x 21 Cm', 10, 'R005'),
-(31, 'P0030', 'The Promised Neverland 16', 22, 18, 24, '2021', 'The Promised Neverland 16.PNG', 208, '11 x 17 Cm', 10, 'R009'),
-(32, 'P0032', 'Jujutsu Kaisen 1', 22, 3, 24, '2021', 'Jujutsu Kaisen 1.PNG', 0, '11 x 17 Cm', 4, 'R009'),
-(33, 'P0033', 'Seri Sweet Ana Salehah 2 Ida & Kecoak', 22, 19, 25, '2019', 'Seri Sweet Ana Salehah  Ida & Kecoak.PNG', 92, '13 x 18 Cm', 4, 'R009'),
-(34, 'P0034', 'Demokrasi dan Kedaruratan Memahami Filsafat Politik Giorgio Agamben', 19, 20, 26, '2019', 'Demokrasi dan Kedaruratan Memahami Filsafat Politik Giorgio Agamben.PNG', 0, '14 x 21 Cm', 6, 'R008'),
-(35, 'P0035', 'Menjemput Jodoh Impian', 18, 21, 27, '2020', 'Menjemput Jodoh Impian.PNG', 208, '14 x 21 Cm', 4, 'R005');
+INSERT INTO `pustaka` (`id_pustaka`, `kode_pustaka`, `judul_pustaka`, `kategori_pustaka`, `penerbit`, `penulis`, `tahun`, `gambar_pustaka`, `halaman`, `dimensi`, `stok`, `rak`, `sinopsis`) VALUES
+(7, 'P0007', 'How To Be A Brillian Thinker', 11, 3, 7, '2020', 'How To Be A Brillian Thinker.PNG', 230, '-', 12, 'R001', 'Buku teks pelajaran ini merupakan salah satu bahan pembelajaran bagi siswa dan guru. Pada tahun 2021, kurikulum ini akan diimplementasikan secara terbatas di Indonesia'),
+(9, 'P0009', 'Pemrograman Android Dalam Sehari', 12, 5, 9, '2015', 'Pemrograman Android Dalam Sehari.PNG', 168, '-', 7, 'R001', 'Buku teks pelajaran ini merupakan salah satu bahan pembelajaran bagi siswa dan guru. Pada tahun 2021, kurikulum ini akan diimplementasikan secara terbatas di Dunia'),
+(10, 'P0010', 'The Magic of Adobe Photoshop Edisi Revisi 2', 12, 6, 10, '2017', 'The Magic of Adobe Photoshop Edisi Revisi 2.PNG', 752, '-', 10, 'ROO3', ''),
+(11, 'P0011', 'Microsoft Visual Basic 6.0 Untuk Pemula', 12, 7, 11, '2008', 'Microsoft Visual Basic 6.0 Untuk Pemula.PNG', 230, '-', 8, 'ROO3', ''),
+(12, 'P0012', 'Bisa Investasi Dengan Gaji', 11, 3, 12, '2016', 'Bisa Investasi Dengan Gaji.PNG', 231, '-', 15, 'R002', ''),
+(13, 'P0013', 'Cara Mudah Buka Bisnis Travel', 11, 9, 13, '2016', 'Cara Mudah Buka Bisnis Travel.PNG', 162, '14 x 21 cm', 5, 'ROO1', ''),
+(14, 'P0014', 'Strategi Membangun Bisnis Mandiri', 11, 9, 6, '2016', 'Strategi Membangun Bisnis Mandiri.PNG', 129, '-', 8, 'R002', ''),
+(16, 'P0015', 'Dzikir Tauhid', 16, 10, 15, '2006', 'Dzikir Tauhid.PNG', 0, '13 x 20 cm', 7, 'B005', ''),
+(17, 'P0017', 'Hujan', 15, 9, 20, '2016', 'Hujan.PNG', 318, '14 x 21 Cm', 10, 'B006', ''),
+(18, 'P0018', 'Aneka Buah Berkhasiat Obat', 17, 12, 17, '2015', 'Aneka Buah Berkhasiat Obat.PNG', 162, '14 x 20 Cm', 10, 'B006', ''),
+(19, 'P0019', 'Invisible Hand', 20, 13, 18, '2013', 'Invisible Hand.PNG', 492, '-', 10, 'B007', ''),
+(25, 'P0020', 'The Small Big', 11, 9, 19, '2016', 'The Small Big.PNG', 246, '14 x 21 Cm', 9, 'R009', ''),
+(29, 'P0026', 'Self Driving', 11, 15, 23, '2014', 'Self Driving.PNG', 272, '14 x 21 Cm', 10, 'R005', ''),
+(31, 'P0030', 'The Promised Neverland 16', 22, 18, 24, '2021', 'The Promised Neverland 16.PNG', 208, '11 x 17 Cm', 10, 'R009', ''),
+(32, 'P0032', 'Jujutsu Kaisen 1', 22, 3, 24, '2021', 'Jujutsu Kaisen 1.PNG', 0, '11 x 17 Cm', 4, 'R009', ''),
+(33, 'P0033', 'Seri Sweet Ana Salehah 2 Ida & Kecoak', 22, 19, 25, '2019', 'Seri Sweet Ana Salehah  Ida & Kecoak.PNG', 92, '13 x 18 Cm', 4, 'R009', ''),
+(34, 'P0034', 'Demokrasi dan Kedaruratan Memahami Filsafat Politik Giorgio Agamben', 19, 20, 26, '2019', 'Demokrasi dan Kedaruratan Memahami Filsafat Politik Giorgio Agamben.PNG', 0, '14 x 21 Cm', 6, 'R008', ''),
+(35, 'P0035', 'Menjemput Jodoh Impian', 18, 21, 27, '2020', 'Menjemput Jodoh Impian.PNG', 208, '14 x 21 Cm', 4, 'R005', ''),
+(38, 'P0036', 'Laskar Pelangi', 15, 9, 29, '2008', '11610-11613.jpg', 979, '14x21 cm', 10, 'R002', ''),
+(41, 'P0041', 'Buku Ipa', 13, 3, 6, '909', 'download.jpg', 8, '14x21 cm', 9, '7', 'Buku teks pelajaran ini merupakan salah satu bahan pembelajaran bagi siswa dan guru. Pada tahun 2021, kurikulum ini akan diimplementasikan secara terbatas di Dunia');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `review_table`
+--
+
+CREATE TABLE `review_table` (
+  `review_id` int(11) NOT NULL,
+  `id_pustaka` int(11) DEFAULT NULL,
+  `user_name` varchar(255) DEFAULT NULL,
+  `user_rating` int(11) DEFAULT NULL,
+  `user_review` text DEFAULT NULL,
+  `datetime` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `review_table`
+--
+
+INSERT INTO `review_table` (`review_id`, `id_pustaka`, `user_name`, `user_rating`, `user_review`, `datetime`) VALUES
+(1, 10, 'toni', 5, 'aku suka membaca buku ', 1706080988),
+(2, 7, 'coki', 3, 'buku ini memberi motivasi saya', NULL),
+(4, 9, 'ahok', 4, 'Buku ini ada main', 1706085777),
+(5, 7, 'Nanda', 1, 'Buku yang bagus dan motivasi', 1706085813),
+(9, 9, 'maya', 3, 'buku kesukaanku', 1706091390),
+(10, 7, 'toni', 4, 'N', 1706104135),
+(11, 17, 'andick', 4, 'GOOD', 1706104448),
+(12, 38, 'maya', 5, 'MON', 1706104490),
+(13, 16, 'CRISS', 5, 'I LOVE', 1706104638);
 
 --
 -- Indexes for dumped tables
@@ -399,6 +466,13 @@ ALTER TABLE `pustaka`
   ADD UNIQUE KEY `kode_pustaka` (`kode_pustaka`);
 
 --
+-- Indeks untuk tabel `review_table`
+--
+ALTER TABLE `review_table`
+  ADD PRIMARY KEY (`review_id`),
+  ADD KEY `id_pustaka` (`id_pustaka`);
+
+--
 -- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
@@ -406,13 +480,13 @@ ALTER TABLE `pustaka`
 -- AUTO_INCREMENT untuk tabel `anggota`
 --
 ALTER TABLE `anggota`
-  MODIFY `id_anggota` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
+  MODIFY `id_anggota` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=84;
 
 --
 -- AUTO_INCREMENT untuk tabel `detail_peminjaman`
 --
 ALTER TABLE `detail_peminjaman`
-  MODIFY `id_detail_peminjaman` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=306;
+  MODIFY `id_detail_peminjaman` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=310;
 
 --
 -- AUTO_INCREMENT untuk tabel `karyawan`
@@ -430,7 +504,7 @@ ALTER TABLE `kategori_pustaka`
 -- AUTO_INCREMENT untuk tabel `peminjaman`
 --
 ALTER TABLE `peminjaman`
-  MODIFY `id_peminjaman` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1147;
+  MODIFY `id_peminjaman` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1150;
 
 --
 -- AUTO_INCREMENT untuk tabel `penerbit`
@@ -442,19 +516,35 @@ ALTER TABLE `penerbit`
 -- AUTO_INCREMENT untuk tabel `pengguna`
 --
 ALTER TABLE `pengguna`
-  MODIFY `id_pengguna` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
+  MODIFY `id_pengguna` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=97;
 
 --
 -- AUTO_INCREMENT untuk tabel `penulis`
 --
 ALTER TABLE `penulis`
-  MODIFY `id_penulis` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id_penulis` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT untuk tabel `pustaka`
 --
 ALTER TABLE `pustaka`
-  MODIFY `id_pustaka` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `id_pustaka` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+
+--
+-- AUTO_INCREMENT untuk tabel `review_table`
+--
+ALTER TABLE `review_table`
+  MODIFY `review_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
+-- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
+--
+
+--
+-- Ketidakleluasaan untuk tabel `review_table`
+--
+ALTER TABLE `review_table`
+  ADD CONSTRAINT `review_table_ibfk_1` FOREIGN KEY (`id_pustaka`) REFERENCES `pustaka` (`id_pustaka`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
